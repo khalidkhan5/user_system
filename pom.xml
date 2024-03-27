@@ -57,10 +57,55 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>2.0.9</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.4.14</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>com.iluwatar.urm</groupId>
+				<artifactId>urm-maven-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<!-- if outputDirectory is not set explicitly it will default to your build dir -->
+					<outputDirectory>${project.basedir}/etc</outputDirectory>
+					<packages>
+						<param>com.mycompany.mypackage</param>
+						<param>com.mycompany.other_package</param>
+					</packages>
+					<ignores>
+						<param>com.mycompany.mypackage.MyClass</param>
+						<param>com.mycompany.other_package.OtherClass</param>
+					</ignores>
+					<includeMainDirectory>true</includeMainDirectory>
+					<includeTestDirectory>false</includeTestDirectory>
+					<presenter>graphviz</presenter>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>map</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.StorySparkleEmpire</groupId>
+						<artifactId>usersystem</artifactId>
+						<version>0.0.1-SNAPSHOT</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -75,5 +120,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
